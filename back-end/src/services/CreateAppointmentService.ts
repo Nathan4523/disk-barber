@@ -6,7 +6,7 @@ import AppointmentsRepository from '../repositories/AppointmentRepository';
 
 //data transfer object
 interface RequestDTO {
-    provider: string;
+    provider_id: string;
     date: Date;
 }
 
@@ -15,7 +15,7 @@ interface RequestDTO {
  */
 
 class CreateAppointmentService {
-    public async execute({ date, provider }: RequestDTO): Promise<Appointment> {
+    public async execute({ date, provider_id }: RequestDTO): Promise<Appointment> {
         const appointmentRepository = getCustomRepository(AppointmentsRepository);
         const appointmentDate = startOfHour(date);
 
@@ -26,7 +26,7 @@ class CreateAppointmentService {
             throw Error('This appointment is already booked');
 
         const appointment = appointmentRepository.create({
-            provider,
+            provider_id,
             date: appointmentDate
         });
 
