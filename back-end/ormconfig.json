@@ -4,5 +4,14 @@
     "post": 5432,
     "username": "postgres",
     "password": "docker",
-    "database": "disk_barber"
+    "database": "disk_barber",
+    "entities": [
+        "./src/models/*.ts"
+    ],
+    "migrations": [
+        "./src/database/migrations/*.ts"
+    ],
+    "cli": {
+        "migrationsDir": "./src/database/migrations"
+    }
 }
