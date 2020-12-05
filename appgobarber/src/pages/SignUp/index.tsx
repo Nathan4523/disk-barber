@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
+import api from '../../services/api';
 
 import getValidationErros from '../../utils/getValidationErros';
 
@@ -38,7 +39,6 @@ const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
-
   const navigation = useNavigation();
 
   const handleSignOut = useCallback(async (data: SignUpFormData) => {
@@ -55,21 +55,25 @@ const SignUp: React.FC = () => {
         abortEarly: false
       });
 
-      // await api.post('/users', data);
+      await api.post('/users', data);
+
+      Alert.alert('Cadastro realizado com sucesso!');
+
+      navigation.goBack();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErros(err);
         formRef.current?.setErrors(errors);
-
+        
         return;
       }
-
+      
       Alert.alert(
         'Erro no cadastro',
         'Ocorreu um erro ao fazer o cadastro.',
       );
     }
-  }, []);
+  }, [navigation]);
 
 
   return (

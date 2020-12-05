@@ -5,6 +5,8 @@ import { StatusBar } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
+import AppProvider from './src/hooks';
+
 import Routes from './src/routes';
 
 const fetchFonts = () => {
@@ -29,7 +31,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar barStyle="light-content" backgroundColor="#312e38" />
-      <Routes />
+      <AppProvider>
+        <Routes />
+      </AppProvider>
     </NavigationContainer>
   );
 }
